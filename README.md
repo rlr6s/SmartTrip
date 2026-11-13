@@ -1,122 +1,242 @@
-# 📍 SmartTrip RD - Planificador y Calculador de Presupuesto de Viajes
+# 📍 SmartTrip RD — Travel Planner & Budget Calculator
 
-> **Proyecto Académico** desarrollado para la asignatura de **Desarrollo Web / Arquitectura de Software** — **Universidad APEC (UNAPEC)**.
+**SmartTrip RD** is a full-stack web application developed as an academic project for the Web Development / Software Architecture course at **Universidad APEC (UNAPEC)**.
 
-SmartTrip RD es una aplicación web full-stack diseñada para la República Dominicana que permite a los usuarios calcular el costo total estimado de viajar entre ciudades del país. Integra mapa interactivo con **Leaflet.js**, cálculo de distancia y rutas mediante **OpenRouteService (ORS)**, consumo de peajes, consumo de combustible en pesos dominicanos (DOP), y desglose de gastos por pasajero.
+The application helps users estimate the cost of traveling between cities in the Dominican Republic. It combines interactive maps, route information, fuel consumption estimates, toll expenses, and per-passenger cost calculations, displaying all financial results in Dominican pesos (DOP).
 
 ---
 
-## 🏗️ Arquitectura Desacoplada del Proyecto
+## ✨ Features
 
-El proyecto sigue una arquitectura **Clean Architecture & Decoupled Client-Server**:
+- **Route Planning:** Select origin and destination cities from a predefined list of Dominican cities.
+- **Interactive Maps:** Visualize routes and locations using Leaflet.js.
+- **Distance and Travel Time:** Retrieve route information through OpenRouteService (ORS).
+- **Trip Cost Estimation:** Calculate estimated fuel expenses and toll costs.
+- **Passenger Cost Breakdown:** Calculate total expenses and cost per passenger.
+- **Customizable Parameters:** Adjust passenger count, fuel efficiency, fuel price, and toll settings.
+- **Fallback Mechanism:** Uses the Haversine formula when OpenRouteService is unavailable or an API key is not configured.
+- **REST API:** Separate backend endpoints for route retrieval and trip cost calculations.
+
+---
+
+## 🏗️ Project Architecture
+
+SmartTrip RD follows a **decoupled client-server architecture**, separating the frontend interface from the backend business logic and REST API.
 
 ```text
-Smarttrip/
-├── backend/                 # Módulo del Servidor API RESTful (Node.js & Express)
-│   ├── services/            # Capa de Lógica de Negocio
-│   │   ├── calculator.js    # Servicio de cálculo de combustible, peajes y costos en DOP
-│   │   └── routeService.js  # Integración con OpenRouteService API y algoritmo Haversine
-│   ├── .env                 # Variables de entorno locales (PORT, OPENROUTESERVICE_API_KEY)
-│   ├── .env.example         # Plantilla de configuración de variables de entorno
-│   ├── node_modules/        # Dependencias del servidor Node.js
-│   ├── package.json         # Scripts de inicio y manifiesto de paquetes backend
-│   ├── package-lock.json    # Lockfile de versiones de dependencias
-│   └── server.js            # Punto de entrada del servidor Express y rutas API
-├── frontend/                # Módulo de Interfaz de Usuario (Cliente)
-│   ├── app.js               # Orquestación de mapa Leaflet.js, formateo e integración Fetch
-│   ├── index.html           # Estructura de la aplicación web y contenedor del mapa
-│   └── styles.css           # Tema oscuro moderno con Glassmorphism y CSS Grid responsivo
-├── .gitignore               # Reglas de exclusión para Git (node_modules, .env)
-└── README.md                # Documentación oficial del proyecto
+SmartTrip-RD/
+│
+├── backend/
+│   ├── services/
+│   │   ├── calculator.js
+│   │   └── routeService.js
+│   ├── .env.example
+│   ├── package.json
+│   ├── package-lock.json
+│   └── server.js
+│
+├── front/
+│   ├── app.js
+│   ├── index.html
+│   └── styles.css
+│
+├── .gitignore
+└── README.md
 ```
 
----
+### Backend
 
-## 🛠️ Tecnologías Utilizadas
+The backend handles API requests, route retrieval, input validation, and trip cost calculations.
 
-### Backend (`backend/`)
-* **Node.js**: Entorno de ejecución para JavaScript en el servidor.
-* **Express.js** (`v4.21.2`): Framework web minimalista para la construcción de la API RESTful.
-* **Axios** (`v1.7.9`): Cliente HTTP basado en promesas para consumir la API de OpenRouteService.
-* **CORS** (`v2.8.5`): Middleware para permitir peticiones seguras entre dominios cruzados.
-* **Dotenv** (`v16.4.7`): Carga dinámica de variables de entorno desde `backend/.env`.
-* **Nodemon** (`v3.1.9`): Herramienta de desarrollo para reinicio automático del servidor.
+- `server.js`: Express server and REST API endpoints.
+- `services/calculator.js`: Business logic for fuel, toll, and passenger cost calculations.
+- `services/routeService.js`: OpenRouteService integration and Haversine-based fallback mechanism.
 
-### Frontend (`frontend/`)
-* **HTML5**: Estructura semántica de la interfaz.
-* **CSS3**: Diseño responsivo avanzado con CSS Grid, Flexbox, variables CSS y estilo Glassmorphism.
-* **Vanilla JavaScript (ES6+)**: Lógica del cliente, manejo asíncrono con `async/await`, consumo de Fetch API y formateo dinámico (`Intl.NumberFormat`).
-* **Leaflet.js** (`v1.9.4`): Librería open-source para mapas interactivos y representación de capas GeoJSON.
+### Frontend
+
+The frontend provides the user interface and communicates with the backend through HTTP requests.
+
+- `index.html`: Application structure.
+- `styles.css`: Responsive interface styling.
+- `app.js`: Application logic, API integration, and interactive map management.
 
 ---
 
-## 🚀 Instalación y Ejecución Paso a Paso
+## 🛠️ Technologies Used
 
-### 1. Requisitos Previos
-- Tener instalado **Node.js** (versión 16.x o superior).
-- Tener instalado **npm** (incluido con Node.js).
+### Backend
 
-### 2. Navegar al Módulo del Backend
+| Technology | Purpose |
+|---|---|
+| Node.js | JavaScript runtime environment |
+| Express.js 4.22.2 | REST API development |
+| Axios 1.19.0 | HTTP requests to external services |
+| CORS 2.8.6 | Cross-origin resource sharing |
+| Dotenv 16.6.1 | Environment variable management |
+| Nodemon 3.1.14 | Automatic server restarting during development |
+
+### Frontend
+
+| Technology | Purpose |
+|---|---|
+| HTML5 | Web page structure |
+| CSS3 | Responsive interface design |
+| Vanilla JavaScript (ES6+) | Application logic and asynchronous operations |
+| Fetch API | Backend communication |
+| Leaflet.js 1.9.4 | Interactive maps |
+| GeoJSON | Geographic data representation |
+
+### External Services
+
+- **OpenRouteService (ORS):** Route information, distance, travel time, and route geometry.
+- **CARTO:** Map tile provider used with Leaflet.js.
+
+---
+
+## 🚀 Installation and Setup
+
+### Prerequisites
+
+Make sure you have installed:
+
+- [Node.js](https://nodejs.org/) (version 18 or higher recommended).
+- npm (included with Node.js).
+- [Visual Studio Code](https://code.visualstudio.com/).
+- [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension for VS Code.
+
+### 1. Clone the repository
+
 ```bash
-cd Smarttrip/backend
+git clone https://github.com/rlr6s/SmartTrip.git
+cd SmartTrip
 ```
 
-### 3. Instalar Dependencias del Backend
-Ejecuta el siguiente comando para instalar las dependencias dentro de `backend/`:
+### 2. Install backend dependencies
+
+Navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+Install the required packages:
+
 ```bash
 npm install
 ```
 
-### 4. Configurar Variables de Entorno
-Crea un archivo `.env` dentro de `backend/` basándote en `.env.example`:
+### 3. Configure environment variables
+
+Create your local `.env` file using the provided example:
+
 ```bash
 cp .env.example .env
 ```
-Contenido de `backend/.env`:
+
+Configure the required variables in `backend/.env`:
+
 ```env
 PORT=3000
 OPENROUTESERVICE_API_KEY=your_openrouteservice_api_key_here
 ```
-*(Nota: Si no se proporciona una clave válida de OpenRouteService, el sistema utilizará automáticamente el **Algoritmo Estimador Haversine** integrado para garantizar la funcionalidad del mapa sin interrupciones).*
 
-### 5. Iniciar el Servidor de Desarrollo
-Ejecuta el script de desarrollo con autorecarga (`nodemon`):
+You can obtain an API key from [OpenRouteService](https://openrouteservice.org/).
+
+**Note:** If a valid API key is not configured or OpenRouteService is unavailable, the application can use its integrated Haversine-based fallback to estimate distances.
+
+Never commit your actual `.env` file or expose your API key.
+
+### 4. Start the backend server
+
+For development with automatic restarting:
+
 ```bash
 npm run dev
 ```
 
-Salida esperada en consola:
-```text
-=================================
-🚀 SmartTrip RD Server Active (Backend Module)
-📡 URL: http://localhost:3000
-🏥 Health Check: http://localhost:3000/api/health
-🗺️ Route Endpoint: http://localhost:3000/api/trips/route (POST)
-🧮 Calculator Endpoint: http://localhost:3000/api/trips/calculate (POST)
-=================================
+Alternatively, start the server normally:
+
+```bash
+npm start
 ```
 
-### 6. Acceder a la Aplicación Frontend
-El servidor Express sirve automáticamente los archivos estáticos de `frontend/`. Abre tu navegador e ingresa a:
-[http://localhost:3000](http://localhost:3000)
+The backend will run at:
+
+```text
+http://localhost:3000
+```
+
+You can verify that the API is running by visiting:
+
+```text
+http://localhost:3000/api/health
+```
+
+### 5. Run the frontend
+
+1. Open the project in Visual Studio Code.
+2. Navigate to the `front/` directory.
+3. Open `index.html`.
+4. Right-click and select **Open with Live Server**.
+
+The frontend will open in your browser, typically at:
+
+```text
+http://127.0.0.1:5500
+```
+
+Make sure the backend server is running while using the application.
 
 ---
 
-## 📡 Documentación de Endpoints del API REST
+## 📡 REST API Documentation
 
-| Método | Endpoint | Descripción | Payload de Entrada (JSON) | Respuesta (JSON) |
-| :--- | :--- | :--- | :--- | :--- |
-| `GET` | `/api/health` | Diagnóstico de salud e informe de tiempo de actividad | Ninguno | `{ "status": "OK", "uptime": "...", "timestamp": "..." }` |
-| `GET` | `/api/cities` | Obtiene el diccionario de ciudades dominicanas | Ninguno | `{ "success": true, "cities": { "santo_domingo": {...} } }` |
-| `POST` | `/api/trips/route` | Trazado de ruta y cálculo de distancia/tiempo | `{ "originCity": "santo_domingo", "destinationCity": "santiago" }` | `{ "success": true, "data": { "distanceKm": 163.7, "durationMinutes": 136, "geometry": {...} } }` |
-| `POST` | `/api/trips/calculate` | Cálculo de costos de combustible, peajes y por pasajero | `{ "distanceKm": 155.5, "durationMinutes": 135, "passengers": 4, "tollCount": 2 }` | `{ "success": true, "data": { "financials": { "totalCostDOP": 1504.42, "costPerPassengerDOP": 376.11 } } }` |
+The backend exposes the following endpoints:
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/api/health` | Checks API status and server uptime. |
+| GET | `/api/cities` | Retrieves the predefined list of supported cities. |
+| POST | `/api/trips/route` | Retrieves route geometry, distance, and estimated travel time. |
+| POST | `/api/trips/calculate` | Calculates fuel expenses, toll costs, and per-passenger costs. |
+
+### Example Requests
+
+**Retrieve a route**
+
+`POST /api/trips/route`
+
+```json
+{
+  "originCity": "santo_domingo",
+  "destinationCity": "santiago"
+}
+```
+
+**Calculate trip expenses**
+
+`POST /api/trips/calculate`
+
+```json
+{
+  "distanceKm": 155.5,
+  "durationMinutes": 135,
+  "passengers": 4,
+  "tollCount": 2
+}
+```
 
 ---
 
-## 🎓 Créditos Académicos
+## 🎓 Academic Project
 
-Proyecto universitario desarrollado para la asignatura de **Desarrollo Web / Arquitectura de Software** en la **Universidad APEC (UNAPEC)**.
+Developed as an individual academic project for the Web Development / Software Architecture course at **Universidad APEC (UNAPEC)**.
 
-**Autor**: Estudiante UNAPEC  
-**Año**: 2026  
-**Licencia**: ISC
+**Author:** Ronald Luis Rodriguez  
+**Year:** 2026
+
+---
+
+## 📄 License
+
+No open-source license has been assigned to this project yet.
