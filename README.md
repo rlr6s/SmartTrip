@@ -1,4 +1,4 @@
-# 📍 SmartTrip RD — Travel Planner & Budget Calculator
+# SmartTrip RD — Travel Planner & Budget Calculator
 
 **SmartTrip RD** is a full-stack web application developed as an academic project for the Web Development / Software Architecture course at **Universidad APEC (UNAPEC)**.
 
@@ -6,7 +6,7 @@ The application helps users estimate the cost of traveling between cities in the
 
 ---
 
-## ✨ Features
+## Features
 
 - **Route Planning:** Select origin and destination cities from a predefined list of Dominican cities.
 - **Interactive Maps:** Visualize routes and locations using Leaflet.js.
@@ -19,7 +19,7 @@ The application helps users estimate the cost of traveling between cities in the
 
 ---
 
-## 🏗️ Project Architecture
+## Project Architecture
 
 SmartTrip RD follows a **decoupled client-server architecture**, separating the frontend interface from the backend business logic and REST API.
 
@@ -93,7 +93,7 @@ The frontend provides the user interface and communicates with the backend throu
 
 ---
 
-## 🚀 Installation and Setup
+## Installation and Setup
 
 ### Prerequisites
 
@@ -189,7 +189,7 @@ Make sure the backend server is running while using the application.
 
 ---
 
-## 📡 REST API Documentation
+## REST API Documentation
 
 The backend exposes the following endpoints:
 
@@ -228,7 +228,7 @@ The backend exposes the following endpoints:
 
 ---
 
-## 🎓 Academic Project
+##  Academic Project
 
 Developed as an individual academic project for the Web Development / Software Architecture course at **Universidad APEC (UNAPEC)**.
 
@@ -237,6 +237,6 @@ Developed as an individual academic project for the Web Development / Software A
 
 ---
 
-## 📄 License
+## License
 
 No open-source license has been assigned to this project yet.
