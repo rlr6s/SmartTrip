@@ -62,7 +62,7 @@ The frontend provides the user interface and communicates with the backend throu
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 ### Backend
 
